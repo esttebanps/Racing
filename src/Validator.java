@@ -8,6 +8,11 @@ public class Validator {
     }
 
     static boolean isValidObstacleQuantity(int circuit, int obstacles) {
-        return obstacles <= (circuit / 2);
+        return obstacles > circuit / 3;
+    }
+
+    static boolean isValidActionsRunner(String actions){
+        return !actions.matches("^(correr|saltar)(,(correr|saltar))*?$");
+
     }
 }

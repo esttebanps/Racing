@@ -1,3 +1,8 @@
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class Speedway {
     public int circuitLength;
     public int obstacles;
@@ -7,7 +12,24 @@ public class Speedway {
         this.obstacles = obstacles;
     }
 
-    public String createCircuit() {
-        return "Hola";
+    public StringBuilder createCircuit() {
+        StringBuilder circuit = new StringBuilder("_".repeat(circuitLength));
+        ArrayList<Integer> positions = new ArrayList<>();
+
+        for (int i = 0; i < obstacles; i++) {
+            int randomPosition;
+            do {
+                randomPosition = (int) (Math.random() * circuitLength - 1) + 1;
+            } while (positions.contains(randomPosition) || randomPosition % 2 == 0);
+            positions.add(randomPosition);
+        }
+
+        for (int i : positions) {
+            circuit.setCharAt(i, '|');
+        }
+
+        System.out.println(circuit);
+
+        return circuit;
     }
 }
