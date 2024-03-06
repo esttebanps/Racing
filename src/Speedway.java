@@ -1,6 +1,3 @@
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class Speedway {
@@ -14,21 +11,19 @@ public class Speedway {
 
     public StringBuilder createCircuit() {
         StringBuilder circuit = new StringBuilder("_".repeat(circuitLength));
-        ArrayList<Integer> positions = new ArrayList<>();
+        Random random = new Random();
 
-        for (int i = 0; i < obstacles; i++) {
-            int randomPosition;
-            do {
-                randomPosition = (int) (Math.random() * circuitLength - 1) + 1;
-            } while (positions.contains(randomPosition) || randomPosition % 2 == 0);
-            positions.add(randomPosition);
-        }
-
+        // Stream API for data manipulations
+        // reads and processes data from data source (collections,array,files.etc.)
+        // This list implements Stream api by default
+        int[] positions = random.ints(2, circuitLength - 1)
+                .filter(i -> i % 2 == 0)
+                .distinct()
+                .limit(obstacles)
+                .toArray();
         for (int i : positions) {
             circuit.setCharAt(i, '|');
         }
-
-        System.out.println(circuit);
 
         return circuit;
     }

@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Validator {
     static boolean validateOptionMenu(int option){
         return option != 1 && option !=2;
@@ -11,8 +13,8 @@ public class Validator {
         return obstacles > circuit / 3;
     }
 
-    static boolean isValidActionsRunner(String actions){
-        return !actions.matches("^(correr|saltar)(,(correr|saltar))*?$");
-
+    static boolean isValidActionsRunner(String actions, int circuitLength) {
+        String[] actionsList = actions.split(",");
+        return !actions.matches("^([cs])(,([cs]))*?$") || actionsList.length != circuitLength;
     }
 }

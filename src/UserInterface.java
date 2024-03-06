@@ -1,11 +1,16 @@
+import java.io.Console;
 import java.util.Scanner;
 
 public class UserInterface {
 
-    static void run() {
-        System.out.println("==============================================");
-        System.out.println("|| ¡Bienvenido a la carrera de obstáculos!! ||");
-        System.out.println("==============================================\n");
+    static void run() throws InterruptedException {
+
+        System.out.print("\u001B[36m");
+            System.out.println("==============================================");
+            System.out.println("|| ¡Bienvenido a la carrera de obstáculos!! ||");
+            System.out.println("==============================================\n");
+        System.out.print("\u001B[0m");
+
         String name, actions;
         int option, obstacles;
         int circuitLength = 0;
@@ -15,7 +20,7 @@ public class UserInterface {
 
             Scanner sc = new Scanner(System.in);
 
-            System.out.println("**Ingresa tu nombre: ");
+            System.out.println("**Ingresa tu username: ");
             name = sc.nextLine();
             System.out.printf("Hola %s\n", name);
             System.out.println("Sigue las instrucciones para jugar.");
@@ -49,11 +54,13 @@ public class UserInterface {
 
             do {
                 System.out.println("**Ingresa las secuencia de acciones separadas por (,): ");
+                System.out.println("* Ingresa c para correr");
+                System.out.println("* Ingresa s para saltar");
                 actions = sc.next();
-                if (Validator.isValidActionsRunner(actions)) {
+                if (Validator.isValidActionsRunner(actions, circuitLength)) {
                     System.err.println("Intenta de nuevo");
                 }
-            } while (Validator.isValidActionsRunner(actions));
+            } while (Validator.isValidActionsRunner(actions, circuitLength));
 
 
             Race.startRace(name, actions, circuitLength, obstacles);
