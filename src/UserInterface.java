@@ -1,4 +1,5 @@
 import java.io.Console;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -11,57 +12,72 @@ public class UserInterface {
             System.out.println("==============================================\n");
         System.out.print("\u001B[0m");
 
-        String name, actions;
-        int option, obstacles;
+        String name = null, actions = null;
+        int option, obstacles = 0;
         int circuitLength = 0;
-        boolean yes;
+        boolean isValid;
 
         do {
-
+            isValid = false;
             Scanner sc = new Scanner(System.in);
 
-            System.out.println("**Ingresa tu username: ");
-            name = sc.nextLine();
+
+            while(!isValid){
+                System.out.println("**Ingresa tu username: ");
+                name = sc.nextLine();
+                if (!Validator.isValidName(name)){
+                    isValid=true;
+                }else {
+                    System.err.println("\u001B[31m⚠️ ¡Ups! Olvidaste ingresar tú nombre.. ⚠️\u001B[0m");
+                    System.err.println("\u001B[31m⚠️ Intenta de nuevo.. ⚠️\u001B[0m");
+                }
+
+            }
+
             System.out.printf("Hola %s\n", name);
             System.out.println("Sigue las instrucciones para jugar.");
-
-            do {
+            isValid = false;
+            while (!isValid) {
                 try {
                     System.out.println("**Ingresa el tamaño de la pista (5 a 15): ");
                     circuitLength = Integer.parseInt(sc.nextLine());
-                    if (Validator.isValidCircuitLength(circuitLength)) {
-                        System.err.println("Ingresa otro valor (5 a 15): ");
+                } catch (NumberFormatException e) {
+                    System.err.println("\u001B[31m⚠️ ¡Error! Ingresa un número entero válido.. ⚠️\u001B[0m");
+                }
+                if (!Validator.isValidCircuitLength(circuitLength)) {
+                    isValid = true;
+                } else {
+                    System.err.println("\u001B[31m⚠️ ¡Error! Ingresa un numero entero entre 5 y 15. ⚠️\u001B[0m");
+                }
+            }
+
+            isValid = false;
+            while (!isValid) {
+                try {
+                    System.out.println("**Ingresa la cantidad de obstáculos, máximo " + circuitLength / 3 + ": ");
+                    obstacles = Integer.parseInt(sc.nextLine());
+                    if (!Validator.isValidObstacleQuantity(circuitLength, obstacles)) {
+                        isValid = true;
+                    } else {
+                        System.err.println("\u001B[31m⚠️ ¡Error! Ingresa una cantidad valida.. ⚠️\u001B[0m");
                     }
                 } catch (NumberFormatException e) {
-                    System.err.println("Ingresa solamente numeros: ");
+                    System.err.println("\u001B[31m⚠️ ¡Error! Ingresa un número entero válido.. ⚠️\u001B[0m");
                 }
-            } while (Validator.isValidCircuitLength(circuitLength));
+            }
 
-            do {
-                System.out.println("**Ingresa la cantidad de obstáculos, máximo " + circuitLength / 3 + ": ");
-
-                while (!sc.hasNextInt()) {
-                    System.err.println("¡Error! Ingresa un número entero válido.");
-                    sc.nextLine();
-                }
-
-                obstacles = sc.nextInt();
-
-                if (Validator.isValidObstacleQuantity(circuitLength, obstacles)) {
-                    System.err.println("Ingresa un número menor o igual a. " + circuitLength / 3);
-                }
-            } while (Validator.isValidObstacleQuantity(circuitLength, obstacles));
-
-            do {
+            isValid = false;
+            while (!isValid) {
                 System.out.println("**Ingresa las secuencia de acciones separadas por (,): ");
                 System.out.println("* Ingresa c para correr");
                 System.out.println("* Ingresa s para saltar");
-                actions = sc.next();
-                if (Validator.isValidActionsRunner(actions, circuitLength)) {
-                    System.err.println("Intenta de nuevo");
+                actions = sc.nextLine();
+                if (!Validator.isValidActionsRunner(actions, circuitLength)) {
+                    isValid = true;
+                } else {
+                    System.err.println("\u001B[31m⚠️ ¡Error! Ingresa una secuencia de pasos vaida. ej: s,c,s,c ⚠️\u001B[0m");
                 }
-            } while (Validator.isValidActionsRunner(actions, circuitLength));
-
+            }
 
             Race.startRace(name, actions, circuitLength, obstacles);
 
@@ -71,18 +87,19 @@ public class UserInterface {
                 System.out.println("2.No");
 
                 while (!sc.hasNextInt()) {
-                    System.err.println("¡Error! Ingresa un número entero válido.");
+                    System.err.println("\u001B[31m⚠️ ¡Error! Ingresa un número entero válido.. ⚠️\u001B[0m");
                     sc.nextLine();
                 }
                 option = sc.nextInt();
 
                 if (Validator.validateOptionMenu(option)) {
-                    System.err.println("Ingresa una opción correcta: ");
+                    System.err.println("\u001B[31m⚠️ Ingresa una opción correcta.. ⚠️\u001B[0m");
                 }
             } while (Validator.validateOptionMenu(option));
 
-            yes = option == 1;
+            isValid = option == 1;
 
-        } while (yes);
+        } while (isValid);
+
     }
 }

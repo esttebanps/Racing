@@ -1,8 +1,8 @@
 import java.util.Arrays;
 
 public class Validator {
-    static boolean validateOptionMenu(int option){
-        return option != 1 && option !=2;
+    static boolean validateOptionMenu(int option) {
+        return option != 1 && option != 2;
     }
 
     static boolean isValidCircuitLength(int circuit) {
@@ -16,5 +16,9 @@ public class Validator {
     static boolean isValidActionsRunner(String actions, int circuitLength) {
         String[] actionsList = actions.split(",");
         return !actions.matches("^([cs])(,([cs]))*?$") || actionsList.length != circuitLength;
+    }
+
+    static boolean isValidName(String name){
+        return name.isBlank();
     }
 }
