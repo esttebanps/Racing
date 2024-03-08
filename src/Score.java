@@ -34,6 +34,6 @@ public class Score {
         System.out.println("• Obstáculos fallidos: " + failedObstacles);
         System.out.println("• Obstáculos superados: " + successObstacles);
         System.out.println("• Fallas en la carrera: " + failedRun);
-        System.out.println("• Puntuación total: " + (scoreRace + successObstacles - (failedObstacles*3) - (failedRun*2)) + "/" + scoreRace);
+        System.out.println("• Puntuación total: " + (scoreRace + successObstacles - (failedObstacles*4) - (failedRun*3)) + "/" + scoreRace);
     }
 }

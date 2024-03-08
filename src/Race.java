@@ -8,7 +8,6 @@ public class Race {
     static Score score;
     static StringBuilder finalSpeedway;
 
-
     static void startRace(String name, String actions, int circuitLength, int obstacles) throws InterruptedException {
         String[] actionsList = actions.split(",");
         runner = new Runner(name, actionsList);
@@ -16,7 +15,6 @@ public class Race {
         StringBuilder circuit = speedway.createCircuit();
 
         System.out.println("=== INICIA LA CARRERA ===");
-
 
         for (int i = 0; i < circuitLength; i++) {
             if (Objects.equals(actionsList[i], "c") && circuit.charAt(i) == '|') {
@@ -33,18 +31,14 @@ public class Race {
         }
 
         finalSpeedway = circuit;
-        System.out.printf("\n** El circuito final es: %s\n",circuit);
+        System.out.printf("\n** El circuito final es: %s\n", circuit);
 
         int scoreRace = Score.calculateScoreRace(circuit);
         int failedObstacles = Score.calculateFailedObstacles(circuit);
         int successObstacles = Score.calculateSuccessObstacles(circuit);
         int failedRun = Score.calculateFailedRun(circuit);
-        Race.score = new Score(scoreRace,failedObstacles,successObstacles,failedRun);
+        score = new Score(scoreRace, failedObstacles, successObstacles, failedRun);
         score.raceResult(runner.name);
-
-
-
-
     }
 }
 
