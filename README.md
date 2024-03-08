@@ -20,5 +20,6 @@ Este proyecto implementa una carrera de obstáculos en Java. Permite al usuario 
 | x        | Salto en la pista    |
 
 ## Diagrama UML:
-![image](https://github.com/esttebanps/Racing/assets/86686071/2cb31e34-ee53-4f1f-b911-3c2268c16608)
+![image](https://github.com/esttebanps/Racing/assets/86686071/39c2a3fd-de37-46aa-a597-84a782970a62)
+
 
