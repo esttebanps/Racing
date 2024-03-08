@@ -10,7 +10,7 @@ Este proyecto implementa una carrera de obstáculos en Java. Permite al usuario 
 - Posicionamiento aleatorio de obstáculos pares en el circuito.
 - Visualización del circuito como una cadena de caracteres con '_' para espacios vacíos y '|' para obstáculos.
 - Simulación de la carrera de un "corredor" virtual a través del circuito.
-##Significado de caracteres en el circuito:
+## Significado de caracteres en el circuito:
 
 | Caracter | Descripción          |
 |----------|----------------------|
